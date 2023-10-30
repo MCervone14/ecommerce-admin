@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { toast } from "react-hot-toast";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useStoreModal } from "@/hooks/use-store-modal";
+import { useStoreModal } from "@/hooks/useStoreModal";
 import { Modal } from "@/components/ui/modal";
 import {
   Form,
@@ -38,7 +40,11 @@ const StoreModal = () => {
     try {
       setLoading(true);
       const response = await axios.post("/api/stores", values);
-      toast.success("Store created");
+
+      // revalidatePath("/(dashboard)/[storeId]/(routes)");
+      // redirect(`/${response.data.id}`);
+
+      window.location.assign(`/${response.data.id}`);
     } catch (error) {
       toast.error("Something went wrong");
     } finally {

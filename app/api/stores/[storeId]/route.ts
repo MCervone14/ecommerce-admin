@@ -46,6 +46,8 @@ export async function DELETE(
     const store = await prismadb.store.deleteMany({
       where: { id: params.storeId, userId },
     });
+
+    return NextResponse.json(store);
   } catch (error) {
     console.log("[STORE_DELETE", error);
     return new NextResponse("Internal Error", { status: 500 });

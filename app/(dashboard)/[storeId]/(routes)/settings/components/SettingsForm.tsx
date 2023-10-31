@@ -23,6 +23,7 @@ import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import AlertModal from "@/components/modals/AlertModal";
 import ApiAlert from "@/components/ui/apialert";
+import UseOrigin from "@/hooks/useOrigin";
 
 interface SettingsFormProps {
   initialData: Store;
@@ -39,6 +40,7 @@ const SettingsForm = ({ initialData }: SettingsFormProps) => {
   const [loading, setLoading] = useState(false);
   const params = useParams();
   const router = useRouter();
+  const origin = UseOrigin();
 
   const form = useForm<SettingsFormValues>({
     resolver: zodResolver(formSchema),
